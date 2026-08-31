@@ -1,0 +1,39 @@
+{
+  "name": "payload-newsroom",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "turbo build",
+    "check": "pnpm format:check && pnpm lint && pnpm style:check && pnpm typecheck && pnpm test",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:migrate": "pnpm --filter @repo/cms migrate",
+    "db:reseed": "pnpm db:reset && pnpm db:migrate && pnpm seed",
+    "db:reset": "docker compose down --volumes --remove-orphans && docker compose up -d --wait postgres",
+    "db:up": "docker compose up -d --wait postgres",
+    "dev": "PORTLESS_HTTPS=0 portless",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint . --deny-warnings",
+    "seed": "pnpm --filter @repo/cms seed",
+    "slides:dev": "pnpm --filter @repo/slides dev",
+    "slides:export": "pnpm --filter @repo/slides export",
+    "style:check": "node scripts/check-style-policy.mjs",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.3",
+    "esbuild": "0.28.2",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
+    "portless": "0.15.6",
+    "turbo": "2.10.12",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": ">=24.20.0 <25",
+    "pnpm": ">=11.24.0 <12"
+  },
+  "packageManager": "pnpm@11.24.0"
+}
